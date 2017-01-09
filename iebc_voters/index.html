@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css" />
+        <link rel="stylesheet" type="text/css" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css" />
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet-heat.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/OSMBuildings-Leaflet.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="data/wards0.js"></script>
+        <script src="data/pollstations1.js"></script>
+        <script>
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-5.0905229057,29.5139112227],[5.70495727604,46.3025422468]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var feature_group = new L.featureGroup([]);
+        var bounds_group = new L.featureGroup([]);
+        var raster_group = new L.LayerGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+        }
+        function geoJson2heat(geojson, weight) {
+          return geojson.features.map(function(feature) {
+            return [
+              feature.geometry.coordinates[1],
+              feature.geometry.coordinates[0],
+              feature.properties[weight]
+            ];
+          });
+        }
+        function pop_wards0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">CONSTITUEN</th>\
+                        <td>' + (feature.properties['CONSTITUEN'] !== null ? Autolinker.link(String(feature.properties['CONSTITUEN'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">RegVoters</th>\
+                        <td>' + (feature.properties['RegVoters'] !== null ? Autolinker.link(String(feature.properties['RegVoters'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">County</th>\
+                        <td>' + (feature.properties['County'] !== null ? Autolinker.link(String(feature.properties['County'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ward</th>\
+                        <td>' + (feature.properties['Ward'] !== null ? Autolinker.link(String(feature.properties['Ward'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function style_wards0(feature) {
+            if (feature.properties['RegVoters'] >= 467.000000 && feature.properties['RegVoters'] <= 5987.000000 ) {
+                return {
+                pane: 'pane_wards0',
+                opacity: 1,
+                color: 'rgba(217,207,217,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fillOpacity: 1,
+                fillColor: 'rgba(254,240,217,1.0)',
+            }
+            }
+            if (feature.properties['RegVoters'] >= 5987.000000 && feature.properties['RegVoters'] <= 10017.000000 ) {
+                return {
+                pane: 'pane_wards0',
+                opacity: 1,
+                color: 'rgba(217,207,217,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fillOpacity: 1,
+                fillColor: 'rgba(253,204,138,1.0)',
+            }
+            }
+            if (feature.properties['RegVoters'] >= 10017.000000 && feature.properties['RegVoters'] <= 15071.000000 ) {
+                return {
+                pane: 'pane_wards0',
+                opacity: 1,
+                color: 'rgba(217,207,217,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fillOpacity: 1,
+                fillColor: 'rgba(252,141,89,1.0)',
+            }
+            }
+            if (feature.properties['RegVoters'] >= 15071.000000 && feature.properties['RegVoters'] <= 23166.000000 ) {
+                return {
+                pane: 'pane_wards0',
+                opacity: 1,
+                color: 'rgba(217,207,217,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fillOpacity: 1,
+                fillColor: 'rgba(227,74,51,1.0)',
+            }
+            }
+            if (feature.properties['RegVoters'] >= 23166.000000 && feature.properties['RegVoters'] <= 46499.000000 ) {
+                return {
+                pane: 'pane_wards0',
+                opacity: 1,
+                color: 'rgba(217,207,217,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fillOpacity: 1,
+                fillColor: 'rgba(179,0,0,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_wards0');
+        map.getPane('pane_wards0').style.zIndex = 600;
+        map.getPane('pane_wards0').style['mix-blend-mode'] = 'normal';
+    var layer_wards0 = new L.geoJson(json_wards0, {
+        pane: 'pane_wards0',
+        onEachFeature: pop_wards0,
+        style: style_wards0
+    });
+        bounds_group.addLayer(layer_wards0);
+        function pop_pollstations1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">County</th>\
+                        <td>' + (feature.properties['COUNTY'] !== null ? Autolinker.link(String(feature.properties['COUNTY'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Constituency</th>\
+                        <td>' + (feature.properties['CONSTNAME'] !== null ? Autolinker.link(String(feature.properties['CONSTNAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ward</th>\
+                        <td>' + (feature.properties['CAWNAME'] !== null ? Autolinker.link(String(feature.properties['CAWNAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PollName</th>\
+                        <td>' + (feature.properties['POLLINGSTA'] !== null ? Autolinker.link(String(feature.properties['POLLINGSTA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Registered</th>\
+                        <td>' + (feature.properties['RegVoters'] !== null ? Autolinker.link(String(feature.properties['RegVoters'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function style_pollstations1(feature) {
+            if (feature.properties['RegVoters'] >= 0.000000 && feature.properties['RegVoters'] <= 624.000000 ) {
+                return {
+                pane: 'pane_pollstations1',
+                radius: 2.8,
+                opacity: 1,
+                color: 'rgba(217,207,217,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,251,255,1.0)',
+            }
+            }
+            if (feature.properties['RegVoters'] >= 624.000000 && feature.properties['RegVoters'] <= 1796.000000 ) {
+                return {
+                pane: 'pane_pollstations1',
+                radius: 2.8,
+                opacity: 1,
+                color: 'rgba(217,207,217,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(199,220,239,1.0)',
+            }
+            }
+            if (feature.properties['RegVoters'] >= 1796.000000 && feature.properties['RegVoters'] <= 4853.000000 ) {
+                return {
+                pane: 'pane_pollstations1',
+                radius: 2.8,
+                opacity: 1,
+                color: 'rgba(217,207,217,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(114,178,215,1.0)',
+            }
+            }
+            if (feature.properties['RegVoters'] >= 4853.000000 && feature.properties['RegVoters'] <= 13049.000000 ) {
+                return {
+                pane: 'pane_pollstations1',
+                radius: 2.8,
+                opacity: 1,
+                color: 'rgba(217,207,217,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(40,120,184,1.0)',
+            }
+            }
+            if (feature.properties['RegVoters'] >= 13049.000000 && feature.properties['RegVoters'] <= 29266.000000 ) {
+                return {
+                pane: 'pane_pollstations1',
+                radius: 2.8,
+                opacity: 1,
+                color: 'rgba(217,207,217,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(8,48,107,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_pollstations1');
+        map.getPane('pane_pollstations1').style.zIndex = 601;
+        map.getPane('pane_pollstations1').style['mix-blend-mode'] = 'normal';
+        var layer_pollstations1 = new L.geoJson(json_pollstations1, {
+            pane: 'pane_pollstations1',
+            onEachFeature: pop_pollstations1,
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, style_pollstations1(feature))
+            }
+        });
+        bounds_group.addLayer(layer_pollstations1);
+        feature_group.addLayer(layer_pollstations1);
+        raster_group.addTo(map);
+        feature_group.addTo(map);
+        var baseMaps = {'OSM': basemap0};
+        L.control.layers(baseMaps,{'pollstations<br /><table><tr><td style="text-align: center;"><img src="legend/pollstations1_06240.png" /></td><td> 0 - 624 </td></tr><tr><td style="text-align: center;"><img src="legend/pollstations1_62417961.png" /></td><td> 624 - 1796 </td></tr><tr><td style="text-align: center;"><img src="legend/pollstations1_179648532.png" /></td><td> 1796 - 4853 </td></tr><tr><td style="text-align: center;"><img src="legend/pollstations1_4853130493.png" /></td><td> 4853 - 13049 </td></tr><tr><td style="text-align: center;"><img src="legend/pollstations1_13049292664.png" /></td><td> 13049 - 29266 </td></tr></table>': layer_pollstations1,'wards<br /><table><tr><td style="text-align: center;"><img src="legend/wards0_46759870.png" /></td><td> 467 - 5987 </td></tr><tr><td style="text-align: center;"><img src="legend/wards0_5987100171.png" /></td><td> 5987 - 10017 </td></tr><tr><td style="text-align: center;"><img src="legend/wards0_10017150712.png" /></td><td> 10017 - 15071 </td></tr><tr><td style="text-align: center;"><img src="legend/wards0_15071231663.png" /></td><td> 15071 - 23166 </td></tr><tr><td style="text-align: center;"><img src="legend/wards0_23166464994.png" /></td><td> 23166 - 46499 </td></tr></table>': layer_wards0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
